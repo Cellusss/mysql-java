@@ -33,7 +33,7 @@ PRIMARY KEY (unit_id)
 CREATE TABLE recipe_category (
  recipe_id INT NOT NULL,
  category_id INT NOT NULL 
- 
+Foreign KEY (recipe_id) REFERENCES recipe (recipe_id) ON DELETE CASDADE, UNIQUE KEY (recipe_id, category_id)
 );
 
 CREATE TABLE step (
