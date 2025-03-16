@@ -32,9 +32,11 @@ public class ProjectsApp {
 	boolean done = false;
 	
 	while(!done) {
-        int selection = getUserSelections(); 
+		try {
+	    int selection = getUserSelection();
+        
+        
       
-        try {
         switch (selection) { 
         case -1:
         done = exitMenu();
@@ -59,9 +61,17 @@ public class ProjectsApp {
         System.out.println("\nError: " + e + " Try again.");
         	
         }
- }
+		}
  }
 
+
+private int getUserSelection() {
+	printOperations();
+	
+	Integer input = getIntInput("Enter a menu selection");
+	
+	return Objects.isNull(input) ? -1 : input;
+}
 private void createProject() {
   String projectName = getStringInput("Enter the project name");
  BigDecimal estimatedHours = getDecimalInput("Enter the estimated hours");
@@ -96,7 +106,7 @@ return new BigDecimal (input).setScale(2);
 }
 
 catch(NumberFormatException e) {
- throw new DbException(input + "is not a valid decimal number");
+ throw new DbException(input + "is not a valid decimal number.");
 }
 }
 
@@ -104,12 +114,6 @@ private boolean exitMenu() {
 	System.out.println("\nexitingthemenu. TTFN");
 			
 	return true;
-}
-private int getUserSelections() {
-	printOperations();
-	Integer input = getIntInput("Enter a menu selection"); 
-	
-	return Objects.isNull(input) ? -1 : input;
 }
 private Integer getIntInput(String prompt) {
 	String input = getStringInput(prompt);
@@ -147,7 +151,7 @@ private String getStringInput(String prompt) {
 }
 private void printOperations() {
 	System.out.println();
-	System.out.println ("/nThese are the available selections. Press the enter key to quit");;
+	System.out.println ("/nThese are the available selections. Press the enter key to quit");
 	
 operations.forEach(line -> System.out.println(" " + line));
 	
